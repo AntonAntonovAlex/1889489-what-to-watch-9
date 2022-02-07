@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Anton Antonov](https://up.htmlacademy.ru/react/9/user/1889489).
-* Наставник: `Неизвестно`.
+* Наставник: [Елена Грицук](https://htmlacademy.ru/profile/id199079).
 
 ---
 
