@@ -1,3 +1,5 @@
+import Logo from '../logo/logo';
+
 function AddReview(): JSX.Element {
   return (
     <section className="film-card film-card--full">
@@ -10,13 +12,7 @@ function AddReview(): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header">
-          <div className="logo">
-            <a href="main.html" className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
@@ -25,7 +21,7 @@ function AddReview(): JSX.Element {
                 </a>
               </li>
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link">Add review</a>
+                <a href="#todo" className="breadcrumbs__link">Add review</a>
               </li>
             </ul>
           </nav>
@@ -41,7 +37,7 @@ function AddReview(): JSX.Element {
               </div>
             </li>
             <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
+              <a href="#todo" className="user-block__link">Sign out</a>
             </li>
           </ul>
         </header>
@@ -84,7 +80,7 @@ function AddReview(): JSX.Element {
                 type="radio"
                 name="rating"
                 defaultValue={8}
-                defaultChecked=""
+                defaultChecked
               />
               <label className="rating__label" htmlFor="star-8">
             Rating 8
