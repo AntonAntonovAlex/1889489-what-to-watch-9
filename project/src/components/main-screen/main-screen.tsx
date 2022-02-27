@@ -1,21 +1,15 @@
-import FilmCard from '../film-card/film-card';
+import {Film} from '../../types/films';
 import Logo from '../logo/logo';
+import Filmslist from '../films-list/films-list';
 
 type MainScreenProps = {
   title: string;
   genre: string;
   year: number;
+  films: Film[];
 }
 
-const renderFilmCards = () => {
-  const filmCards = [];
-  for (let i = 0; i < 20; i++) {
-    filmCards.push(<FilmCard />);
-  }
-  return filmCards;
-};
-
-function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
+function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -133,9 +127,7 @@ function MainScreen({title, genre, year}: MainScreenProps): JSX.Element {
               </a>
             </li>
           </ul>
-          <div className="catalog__films-list">
-            {renderFilmCards()}
-          </div>
+          {<Filmslist films={films}/>}
           <div className="catalog__more">
             <button className="catalog__button" type="button">
           Show more
