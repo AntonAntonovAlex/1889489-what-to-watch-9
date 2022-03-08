@@ -9,8 +9,9 @@ type FilmListProps = {
 function Filmslist({films}: FilmListProps): JSX.Element {
   const [activeFilm, setActiveFilm] = useState(0);
 
-  const filmChangeHandle = (evt: { currentTarget: any; }) => {
-    setActiveFilm(activeFilm === evt.currentTarget.getAttribute('data-id') ? 0 : evt.currentTarget.getAttribute('data-id'));
+  const filmChangeHandle = (evt: { currentTarget:  HTMLElement }) => {
+    const currentId = Number(evt.currentTarget.getAttribute('data-id'));
+    setActiveFilm(activeFilm === currentId ? 0 : currentId);
   };
 
   return (
