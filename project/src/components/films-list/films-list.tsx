@@ -7,16 +7,16 @@ type FilmListProps = {
 }
 
 function Filmslist({films}: FilmListProps): JSX.Element {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [activeFilm, setActiveFilm] = useState();
+  const [activeFilm, setActiveFilm] = useState(0);
 
-  const filmChangeHandle = (evt: { currentTarget: any; }) => {
-    setActiveFilm(evt.currentTarget.getAttribute('data-id'));
+  const filmChangeHandle = (evt: { currentTarget:  HTMLElement }) => {
+    const currentId = Number(evt.currentTarget.getAttribute('data-id'));
+    setActiveFilm(activeFilm === currentId ? 0 : currentId);
   };
 
   return (
     <div className="catalog__films-list">
-      {films.map((film) => (<FilmCard film={film} key={film.id} onMouseEnterCallback={filmChangeHandle}/>))}
+      {films.map((film) => (<FilmCard film={film} isActive={film.id === +activeFilm} key={film.id} onMouseEventCallback={filmChangeHandle}/>))}
 
     </div>
   );

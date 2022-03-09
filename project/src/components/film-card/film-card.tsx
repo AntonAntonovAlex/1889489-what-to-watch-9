@@ -1,22 +1,20 @@
+import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-//import { AppRoute } from '../../const';
 import {Film} from '../../types/films';
+import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {
   film: Film;
-  onMouseEnterCallback: any;
+  isActive: boolean;
+  onMouseEventCallback: MouseEventHandler<HTMLElement>;
 }
 
-function FilmCard({film, onMouseEnterCallback}: FilmCardProps): JSX.Element {
+function FilmCard({film, isActive, onMouseEventCallback}: FilmCardProps): JSX.Element {
+
   return (
-    <article className="small-film-card catalog__films-card" key={film.id} onMouseEnter={onMouseEnterCallback}>
+    <article className="small-film-card catalog__films-card" data-id={film.id} key={film.id} onMouseEnter={onMouseEventCallback} onMouseLeave={onMouseEventCallback}>
       <div className="small-film-card__image">
-        <img
-          src={film.previewImage}
-          alt={film.name}
-          width={280}
-          height={175}
-        />
+        <VideoPlayer previewVideoLink={film.previewVideoLink} previewImage={film.previewImage} isActive={isActive}/>
       </div>
       <h3 className="small-film-card__title">
         <Link className="small-film-card__link" to={`${'/films/'}${film.id}`}>
