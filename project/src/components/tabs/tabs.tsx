@@ -1,4 +1,4 @@
-import {TabType} from '../../const';
+import {FilmTextRating, TabType} from '../../const';
 import {Film} from '../../types/films';
 import {reviews} from '../../mocks/reviews';
 
@@ -7,12 +7,18 @@ type TabsProps = {
   type: TabType;
 }
 
+function getReviewDate(date: string, isProperty: boolean) {
+  return isProperty?
+    new Date(date).toLocaleDateString() :
+    new Date(date).toLocaleDateString('en-US', { month: 'long', year: 'numeric', day: 'numeric' });
+}
+
 function getTextRating(raiting: number) {
-  if (0 <= raiting && raiting < 3) {return 'Bad';}
-  if (3 <= raiting && raiting < 5) {return 'Normal';}
-  if (5 <= raiting && raiting < 8) {return 'Good';}
-  if (8 <= raiting && raiting < 10) {return 'Very good';}
-  if (raiting === 10) {return 'Awesome';}
+  if (0 <= raiting && raiting < 3) {return FilmTextRating.Bad;}
+  if (3 <= raiting && raiting < 5) {return FilmTextRating.Normal;}
+  if (5 <= raiting && raiting < 8) {return FilmTextRating.Good;}
+  if (8 <= raiting && raiting < 10) {return FilmTextRating.VeryGood;}
+  if (raiting === 10) {return FilmTextRating.Awesome;}
 }
 
 function Tabs({type, selectedFilm}: TabsProps): JSX.Element {
@@ -88,8 +94,8 @@ function Tabs({type, selectedFilm}: TabsProps): JSX.Element {
                   </p>
                   <footer className="review__details">
                     <cite className="review__author">{review.user.name}</cite>
-                    <time className="review__date" dateTime="2016-12-24">
-                      {new Date(review.date).toDateString()}
+                    <time className="review__date" dateTime={getReviewDate(review.date, true)}>
+                      {getReviewDate(review.date, false)}
                     </time>
                   </footer>
                 </blockquote>
@@ -105,8 +111,8 @@ function Tabs({type, selectedFilm}: TabsProps): JSX.Element {
                 </p>
                 <footer className="review__details">
                   <cite className="review__author">{review.user.name}</cite>
-                  <time className="review__date" dateTime="2016-12-24">
-                    {new Date(review.date).toDateString()}
+                  <time className="review__date" dateTime={getReviewDate(review.date, true)}>
+                    {getReviewDate(review.date, false)}
                   </time>
                 </footer>
               </blockquote>

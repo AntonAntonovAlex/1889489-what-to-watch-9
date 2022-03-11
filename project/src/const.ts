@@ -18,3 +18,11 @@ export enum TabType {
   Details = 'details',
   Reviews = 'reviews',
 }
+
+export enum FilmTextRating {
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome',
+}
