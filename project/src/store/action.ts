@@ -5,3 +5,7 @@ export const changeGenre = createAction('changeGenre', (value: string) => ({
 }));
 
 export const getListFilms = createAction('getListFilms');
+
+export const incrementCountFilms = createAction('incrementCountFilms');
+
+export const resetState = createAction('resetState');

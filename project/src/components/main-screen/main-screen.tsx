@@ -3,6 +3,7 @@ import Logo from '../logo/logo';
 import Filmslist from '../films-list/films-list';
 import Genreslist from '../genres-list/genres-list';
 import { useAppSelector } from '../../hooks';
+import ShowMoreButton from '../show-more-button/show-more-button';
 
 type MainScreenProps = {
   title: string;
@@ -14,8 +15,13 @@ type MainScreenProps = {
 function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
   const filmsState = useAppSelector((state) => state.films);
   const genreState = useAppSelector((state) => state.genre);
+  const countFilmsState = useAppSelector((state) => state.countFilms);
 
   const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
+
+  const sortedSliseFilms = countFilmsState > sortedFilms.length ?
+    sortedFilms :
+    sortedFilms.slice(0, countFilmsState);
 
   return (
     <>
@@ -83,12 +89,8 @@ function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
           {<Genreslist/>}
-          {<Filmslist films={sortedFilms}/>}
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">
-          Show more
-            </button>
-          </div>
+          {<Filmslist films={sortedSliseFilms}/>}
+          {!(countFilmsState >= sortedFilms.length) && <ShowMoreButton/>}
         </section>
         <footer className="page-footer">
           <div className="logo">

@@ -42,3 +42,4 @@ export const GenreType = new Map([
   ['Action', 'Action'],
 ]);
 
+export const STEP_COUNT = 4;
