@@ -26,3 +26,19 @@ export enum FilmTextRating {
   VeryGood = 'Very good',
   Awesome = 'Awesome',
 }
+
+export const GenreType = new Map([
+  ['AllGenres', 'All genres'],
+  ['Comedy', 'Comedies'],
+  ['Crime', 'Crime'],
+  ['Documentary', 'Documentary'],
+  ['Drama', 'Dramas'],
+  ['Horror', 'Horror'],
+  ['KidsFamily', 'Kids & Family'],
+  ['Romance', 'Romance'],
+  ['SciFi', 'Sci-Fi'],
+  ['Thriller', 'Thrillers'],
+  ['Adventure', 'Adventure'],
+  ['Action', 'Action'],
+]);
+
