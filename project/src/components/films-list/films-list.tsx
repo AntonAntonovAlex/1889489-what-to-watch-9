@@ -7,6 +7,8 @@ type FilmListProps = {
 }
 
 function Filmslist({films}: FilmListProps): JSX.Element {
+  //const filmsState = useAppSelector((state) => state.films);
+
   const [activeFilm, setActiveFilm] = useState(0);
 
   const filmChangeHandle = (evt: { currentTarget:  HTMLElement }) => {

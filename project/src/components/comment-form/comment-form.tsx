@@ -3,10 +3,10 @@ import {ChangeEvent, useState} from 'react';
 function CommentForm(): JSX.Element {
   const [userCommit, setUserCommit] = useState('');
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [userRating, setUserRating] = useState();
+  const [userRating, setUserRating] = useState(8);
 
-  const fieldChangeHandle = (evt: { target: any; }) => {
-    const {value} = evt.target;
+  const fieldChangeHandle = ({ target}: ChangeEvent<HTMLInputElement>) => {
+    const value = +target.value;
     setUserRating(value);
   };
 
