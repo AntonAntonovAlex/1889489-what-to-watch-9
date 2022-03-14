@@ -6,8 +6,7 @@ function CommentForm(): JSX.Element {
   const [userRating, setUserRating] = useState(8);
 
   const fieldChangeHandle = ({ target}: ChangeEvent<HTMLInputElement>) => {
-    const value = +target.value;
-    setUserRating(value);
+    setUserRating(+target.value);
   };
 
   return (

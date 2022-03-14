@@ -1,3 +1,5 @@
+import { Genre } from './types/genre';
+
 export enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',
@@ -27,19 +29,19 @@ export enum FilmTextRating {
   Awesome = 'Awesome',
 }
 
-export const GenreType = new Map([
-  ['AllGenres', 'All genres'],
-  ['Comedy', 'Comedies'],
-  ['Crime', 'Crime'],
-  ['Documentary', 'Documentary'],
-  ['Drama', 'Dramas'],
-  ['Horror', 'Horror'],
-  ['KidsFamily', 'Kids & Family'],
-  ['Romance', 'Romance'],
-  ['SciFi', 'Sci-Fi'],
-  ['Thriller', 'Thrillers'],
-  ['Adventure', 'Adventure'],
-  ['Action', 'Action'],
-]);
+export const GenreType: Genre = {
+  'AllGenres': 'All genres',
+  'Comedy': 'Comedies',
+  'Crime': 'Crime',
+  'Documentary': 'Documentary',
+  'Drama': 'Dramas',
+  'Horror': 'Horror',
+  'KidsFamily': 'Kids & Family',
+  'Romance': 'Romance',
+  'SciFi': 'Sci-Fi',
+  'Thriller': 'Thrillers',
+  'Adventure': 'Adventure',
+  'Action': 'Action',
+};
 
 export const STEP_COUNT = 4;

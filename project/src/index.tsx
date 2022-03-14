@@ -13,7 +13,7 @@ const Setting = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store = {store}>
+    <Provider store={store}>
       <App
         title={Setting.TITLE} genre={Setting.GENRE} year={Setting.YEAR}
         films={films}
