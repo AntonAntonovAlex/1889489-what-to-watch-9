@@ -19,7 +19,7 @@ function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
 
   const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
 
-  const sortedSliseFilms = countFilmsState > sortedFilms.length ?
+  const sortedSlicedFilms = countFilmsState > sortedFilms.length ?
     sortedFilms :
     sortedFilms.slice(0, countFilmsState);
 
@@ -88,8 +88,8 @@ function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          {<Genreslist/>}
-          {<Filmslist films={sortedSliseFilms}/>}
+          <Genreslist/>
+          <Filmslist films={sortedSlicedFilms}/>
           {!(countFilmsState >= sortedFilms.length) && <ShowMoreButton/>}
         </section>
         <footer className="page-footer">
