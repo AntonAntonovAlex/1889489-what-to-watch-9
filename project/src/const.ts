@@ -1,5 +1,9 @@
 import { Genre } from './types/genre';
 
+export const TIMEOUT_SHOW_ERROR = 2000;
+
+export const STEP_COUNT = 4;
+
 export enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',
@@ -44,4 +48,17 @@ export const GenreType: Genre = {
   'Action': 'Action',
 };
 
-export const STEP_COUNT = 4;
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+  Promo = '/promo',
+  Favorite = '/favorite',
+  Comments = '/comments',
+}
+
+export enum HTTP_CODE {
+  BAD_REQUEST = 400,
+  UNAUTHORIZED = 401,
+  NOT_FOUND = 404,
+}
