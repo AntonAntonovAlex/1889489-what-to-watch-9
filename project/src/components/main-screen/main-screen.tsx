@@ -88,7 +88,7 @@ function MainScreen({title, genre, year, films}: MainScreenProps): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <Genreslist/>
+          {!!filmsState.length && <Genreslist/>}
           <Filmslist films={sortedSlicedFilms}/>
           {!(countFilmsState >= sortedFilms.length) && <ShowMoreButton/>}
         </section>
