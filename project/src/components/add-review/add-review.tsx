@@ -2,14 +2,12 @@ import { useParams } from 'react-router-dom';
 import { Film } from '../../types/films';
 import Logo from '../logo/logo';
 import CommentForm from '../comment-form/comment-form';
+import { useAppSelector } from '../../hooks';
 
-type AddReviewProps = {
-  films: Film[];
-}
-
-function AddReview({films}: AddReviewProps): JSX.Element {
+function AddReview(): JSX.Element {
+  const filmsState: Film[] = useAppSelector((state) => state.films);
   const params = useParams();
-  const selectedFilm = films.find((film) => film.id === Number(params.id));
+  const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">

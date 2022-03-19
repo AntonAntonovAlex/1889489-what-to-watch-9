@@ -1,10 +1,7 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthorizationStatus, GenreType, STEP_COUNT } from '../const';
 import { Film } from '../types/films';
-//import { films } from '../mocks/films';
-import { changeGenre, incrementCountFilms, loadFilms, requireAuthorization, resetState, setError } from './action';
-
-//const initialFilms = films;
+import { changeGenre, incrementCountFilms, loadFilms, loadPromoFilm, requireAuthorization, resetState, setAvatarUrl } from './action';
 
 type InitalState = {
   genre: string,
@@ -12,7 +9,8 @@ type InitalState = {
   countFilms: number,
   authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
-  error: string,
+  promoFilm: Film | null,
+  avatarUrl: string,
 }
 
 const initialState: InitalState = {
@@ -21,7 +19,8 @@ const initialState: InitalState = {
   countFilms: STEP_COUNT,
   authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
-  error: '',
+  promoFilm: null,
+  avatarUrl: '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -40,11 +39,14 @@ const reducer = createReducer(initialState, (builder) => {
       state.films = action.payload;
       state.isDataLoaded = true;
     })
+    .addCase(loadPromoFilm, (state, action) => {
+      state.promoFilm = action.payload;
+    })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
     })
-    .addCase(setError, (state, action) => {
-      state.error = action.payload;
+    .addCase(setAvatarUrl, (state, action) => {
+      state.avatarUrl = action.payload;
     });
 });
 

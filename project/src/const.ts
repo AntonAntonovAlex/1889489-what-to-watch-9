@@ -1,8 +1,6 @@
 import { Genre } from './types/genre';
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
-export const STEP_COUNT = 4;
+export const STEP_COUNT = 8;
 
 export enum AppRoute {
   SignIn = '/login',
@@ -46,6 +44,7 @@ export const GenreType: Genre = {
   'Thriller': 'Thrillers',
   'Adventure': 'Adventure',
   'Action': 'Action',
+  'Fantasy': 'Fantasy',
 };
 
 export enum APIRoute {

@@ -1,11 +1,9 @@
+import { useAppSelector } from '../../hooks';
 import { Film } from '../../types/films';
 import Logo from '../logo/logo';
 
-type UserListProps = {
-  films: Film[];
-}
-
-function UserList({films}: UserListProps): JSX.Element {
+function UserList(): JSX.Element {
+  const filmsState: Film[] = useAppSelector((state) => state.films);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -25,7 +23,7 @@ function UserList({films}: UserListProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {films.map((film) => (
+          {filmsState.map((film) => (
             <article className="small-film-card catalog__films-card" key={film.id}>
               <div className="small-film-card__image">
                 <img

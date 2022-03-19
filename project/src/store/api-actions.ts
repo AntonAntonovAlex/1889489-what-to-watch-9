@@ -1,22 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
+import { APIRoute, AppRoute, AuthorizationStatus } from '../const';
 import { errorHandle } from '../services/error-handle';
 import { dropToken, saveToken } from '../services/token';
 import { api, store } from '../store';
 import { AuthData } from '../types/auth-data';
 import { Film } from '../types/films';
 import { UserData } from '../types/user-data';
-import { loadFilms, requireAuthorization, setError } from './action';
-
-export const clearErrorAction = createAsyncThunk(
-  'clearError',
-  () => {
-    setTimeout(
-      () => store.dispatch(setError('')),
-      TIMEOUT_SHOW_ERROR,
-    );
-  },
-);
+import { loadFilms, loadPromoFilm, redirectToRoute, requireAuthorization, setAvatarUrl } from './action';
 
 export const fetchFilmAction = createAsyncThunk(
   'fetchFilms',
@@ -24,6 +14,18 @@ export const fetchFilmAction = createAsyncThunk(
     try {
       const {data} = await api.get<Film[]>(APIRoute.Films);
       store.dispatch(loadFilms(data));
+    } catch (error) {
+      errorHandle(error);
+    }
+  },
+);
+
+export const fetchPromoFilmAction = createAsyncThunk(
+  'fetchPromoFilm',
+  async () => {
+    try {
+      const {data} = await api.get<Film>(APIRoute.Promo);
+      store.dispatch(loadPromoFilm(data));
     } catch (error) {
       errorHandle(error);
     }
@@ -47,9 +49,11 @@ export const loginAction = createAsyncThunk(
   'login',
   async ({login: email, password}: AuthData) => {
     try {
-      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+      const {data: {token, avatarUrl}} = await api.post<UserData>(APIRoute.Login, {email, password});
       saveToken(token);
       store.dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      store.dispatch(setAvatarUrl(avatarUrl));
+      store.dispatch(redirectToRoute(AppRoute.Main));
     } catch (error) {
       errorHandle(error);
       store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));

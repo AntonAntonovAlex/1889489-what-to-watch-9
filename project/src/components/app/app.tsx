@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import {Routes, Route} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import AddReview from '../add-review/add-review';
 import MainScreen from '../main-screen/main-screen';
@@ -12,17 +12,14 @@ import {Film} from '../../types/films';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
 import { isCheckedAuth } from '../../wtw';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
-type AppScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-  films: Film[];
-}
-
-function App({title, genre, year, films}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
 
   const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
+  const filmsState: Film[] = useAppSelector((state) => state.films);
+  const [firstFilm] = filmsState;
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
@@ -30,22 +27,20 @@ function App({title, genre, year, films}: AppScreenProps): JSX.Element {
     );
   }
 
-  const [firstFilm] = films;
-
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<MainScreen title={title} genre={genre} year={year} films={films}/>}
+          element={<MainScreen/>}
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReview films={films}/>}
+          element={<AddReview/>}
         />
         <Route
           path={AppRoute.Film}
-          element={<MoviePage films={films} />}
+          element={<MoviePage/>}
         />
         <Route
           path={AppRoute.MyList}
@@ -53,7 +48,7 @@ function App({title, genre, year, films}: AppScreenProps): JSX.Element {
             <PrivateRoute
               authorizationStatus={authorizationStatus}
             >
-              <UserList films={films}/>
+              <UserList/>
             </PrivateRoute>
           }
         />
@@ -70,7 +65,7 @@ function App({title, genre, year, films}: AppScreenProps): JSX.Element {
           element={<NotFoundScreen />}
         />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }
 

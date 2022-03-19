@@ -2,19 +2,17 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { TabType } from '../../const';
+import { useAppSelector } from '../../hooks';
 import { Film } from '../../types/films';
 import Filmslist from '../films-list/films-list';
 import Logo from '../logo/logo';
 import Tabs from '../tabs/tabs';
 
-type MoviePageProps = {
-  films: Film[];
-}
-
-function MoviePage({films}: MoviePageProps): JSX.Element {
+function MoviePage(): JSX.Element {
+  const filmsState: Film[] = useAppSelector((state) => state.films);
   const params = useParams();
-  const selectedFilm = films.find((film) => film.id === Number(params.id));
-  const similarFilms = films.filter((film) => film.genre === selectedFilm?.genre && film.id !== selectedFilm.id).slice(0,4);
+  const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
+  const similarFilms = filmsState.filter((film) => film.genre === selectedFilm?.genre && film.id !== selectedFilm.id).slice(0,4);
   const [typeTabs, setTypeTabs] = useState(TabType.Overview);
   const [activeClassFilm, setActiveClassFilm] = useState([true, false, false]);
 
