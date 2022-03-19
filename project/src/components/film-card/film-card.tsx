@@ -1,6 +1,6 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-import {Film} from '../../types/films';
+import {Film} from '../../types/film';
 import VideoPlayer from '../video-player/video-player';
 
 type FilmCardProps = {

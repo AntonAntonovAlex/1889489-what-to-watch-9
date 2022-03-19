@@ -1,13 +1,17 @@
 import { useParams } from 'react-router-dom';
-import { Film } from '../../types/films';
+import { Film } from '../../types/film';
 import Logo from '../logo/logo';
 import CommentForm from '../comment-form/comment-form';
 import { useAppSelector } from '../../hooks';
+import HeadUser from '../head-user/head-user';
+import HeadGuest from '../head-guest/head-guest';
+import { AuthorizationStatus } from '../../const';
 
 function AddReview(): JSX.Element {
   const filmsState: Film[] = useAppSelector((state) => state.films);
   const params = useParams();
   const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">
@@ -32,21 +36,7 @@ function AddReview(): JSX.Element {
               </li>
             </ul>
           </nav>
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img
-                  src="img/avatar.jpg"
-                  alt="User avatar"
-                  width={63}
-                  height={63}
-                />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a href="#todo" className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          { authorizationStatus === AuthorizationStatus.Auth ? <HeadUser/> : <HeadGuest/>}
         </header>
         <div className="film-card__poster film-card__poster--small">
           <img
@@ -58,7 +48,7 @@ function AddReview(): JSX.Element {
         </div>
       </div>
       <div className="add-review">
-        <CommentForm/>
+        <CommentForm filmId={Number(params.id)}/>
       </div>
     </section>
 

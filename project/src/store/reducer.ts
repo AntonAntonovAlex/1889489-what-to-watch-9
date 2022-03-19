@@ -1,7 +1,8 @@
 import {createReducer} from '@reduxjs/toolkit';
 import { AuthorizationStatus, GenreType, STEP_COUNT } from '../const';
-import { Film } from '../types/films';
-import { changeGenre, incrementCountFilms, loadFilms, loadPromoFilm, requireAuthorization, resetState, setAvatarUrl } from './action';
+import { Film } from '../types/film';
+import { Reviews } from '../types/reviews';
+import { changeGenre, incrementCountFilms, loadFilm, loadFilms, loadPromoFilm, requireAuthorization, resetState, setAvatarUrl } from './action';
 
 type InitalState = {
   genre: string,
@@ -11,6 +12,9 @@ type InitalState = {
   isDataLoaded: boolean,
   promoFilm: Film | null,
   avatarUrl: string,
+  film: Film | null,
+  similarFilms: Film[],
+  reviews: Reviews[],
 }
 
 const initialState: InitalState = {
@@ -21,6 +25,9 @@ const initialState: InitalState = {
   isDataLoaded: false,
   promoFilm: null,
   avatarUrl: '',
+  film: null,
+  similarFilms: [],
+  reviews: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +48,13 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadPromoFilm, (state, action) => {
       state.promoFilm = action.payload;
+    })
+    .addCase(loadFilm, (state, action) => {
+      if (action.payload) {
+        state.film = action.payload.film;
+        state.similarFilms = action.payload.similarFilms;
+        state.reviews = action.payload.reviews;
+      }
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;

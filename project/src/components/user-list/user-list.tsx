@@ -1,5 +1,5 @@
 import { useAppSelector } from '../../hooks';
-import { Film } from '../../types/films';
+import { Film } from '../../types/film';
 import Logo from '../logo/logo';
 
 function UserList(): JSX.Element {

@@ -1,20 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { TabType } from '../../const';
+import { AuthorizationStatus, TabType } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Film } from '../../types/films';
+import { store } from '../../store';
+import { loadFilm } from '../../store/action';
+import { fetchFilmAction } from '../../store/api-actions';
 import Filmslist from '../films-list/films-list';
+import HeadGuest from '../head-guest/head-guest';
+import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 import Tabs from '../tabs/tabs';
 
 function MoviePage(): JSX.Element {
-  const filmsState: Film[] = useAppSelector((state) => state.films);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const params = useParams();
-  const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
-  const similarFilms = filmsState.filter((film) => film.genre === selectedFilm?.genre && film.id !== selectedFilm.id).slice(0,4);
   const [typeTabs, setTypeTabs] = useState(TabType.Overview);
   const [activeClassFilm, setActiveClassFilm] = useState([true, false, false]);
+
+  useEffect(() => {
+    store.dispatch(fetchFilmAction(Number(params.id)));
+    return () => {
+      store.dispatch(loadFilm({film: null, similarFilms: [], reviews: []}));
+    };
+  }, [params.id]);
+
+  const selectedFilm = useAppSelector((state) => state.film);
+  const similarFilms = useAppSelector((state) => state.similarFilms);
 
   return (
     <>
@@ -127,21 +139,7 @@ function MoviePage(): JSX.Element {
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
             <Logo />
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src="img/avatar.jpg"
-                    alt="User avatar"
-                    width={63}
-                    height={63}
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <a href="#todo" className="user-block__link">Sign out</a>
-              </li>
-            </ul>
+            {authorizationStatus === AuthorizationStatus.Auth ? <HeadUser/> : <HeadGuest/>}
           </header>
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -163,9 +161,7 @@ function MoviePage(): JSX.Element {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`${'/films/'}${selectedFilm?.id}${'/review'}`} className="btn film-card__button">
-              Add review
-                </Link>
+                {authorizationStatus === AuthorizationStatus.Auth && <Link to={`${'/films/'}${selectedFilm?.id}${'/review'}`} className="btn film-card__button"> Add review </Link>}
               </div>
             </div>
           </div>
@@ -218,7 +214,7 @@ function MoviePage(): JSX.Element {
                   </li>
                 </ul>
               </nav>
-              {selectedFilm && <Tabs type={typeTabs} selectedFilm={selectedFilm}/>}
+              {selectedFilm && <Tabs type={typeTabs}/>}
             </div>
           </div>
         </div>

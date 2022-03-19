@@ -8,7 +8,7 @@ import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import UserList from '../user-list/user-list';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/films';
+import {Film} from '../../types/film';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
 import { isCheckedAuth } from '../../wtw';
@@ -61,7 +61,7 @@ function App(): JSX.Element {
           element={<SignIn />}
         />
         <Route
-          path="*"
+          path={AppRoute.NotFoundScreen}
           element={<NotFoundScreen />}
         />
       </Routes>

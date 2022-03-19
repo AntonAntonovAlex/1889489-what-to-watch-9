@@ -1,12 +1,12 @@
-import {Film} from '../../types/films';
+import {Film} from '../../types/film';
 import Logo from '../logo/logo';
 import Filmslist from '../films-list/films-list';
 import Genreslist from '../genres-list/genres-list';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import ShowMoreButton from '../show-more-button/show-more-button';
-import { AppRoute, AuthorizationStatus } from '../../const';
-import { Link } from 'react-router-dom';
-import { logoutAction } from '../../store/api-actions';
+import { AuthorizationStatus } from '../../const';
+import HeadUser from '../head-user/head-user';
+import HeadGuest from '../head-guest/head-guest';
 
 function MainScreen(): JSX.Element {
   const filmsState: Film[] = useAppSelector((state) => state.films);
@@ -14,9 +14,6 @@ function MainScreen(): JSX.Element {
   const genreState = useAppSelector((state) => state.genre);
   const countFilmsState = useAppSelector((state) => state.countFilms);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const avatarUrl = useAppSelector((state) => state.avatarUrl);
-
-  const dispatch = useAppDispatch();
 
   const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
 
@@ -36,39 +33,7 @@ function MainScreen(): JSX.Element {
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
           <Logo />
-          { authorizationStatus === AuthorizationStatus.Auth ?
-            <ul className="user-block">
-              <li className="user-block__item">
-                <div className="user-block__avatar">
-                  <img
-                    src={avatarUrl}
-                    alt="User avatar"
-                    width={63}
-                    height={63}
-                  />
-                </div>
-              </li>
-              <li className="user-block__item">
-                <Link
-                  className="user-block__link"
-                  onClick={(evt) => {
-                    evt.preventDefault();
-                    dispatch(logoutAction());
-                  }}
-                  to={AppRoute.Main}
-                >
-                  Sign out
-                </Link>
-              </li>
-            </ul> :
-            <div className="user-block">
-              <Link
-                className="user-block__link"
-                to={AppRoute.SignIn}
-              >
-          Sign in
-              </Link>
-            </div>}
+          {authorizationStatus === AuthorizationStatus.Auth ? <HeadUser/> : <HeadGuest/>}
         </header>
         <div className="film-card__wrap">
           <div className="film-card__info">
