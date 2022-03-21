@@ -1,25 +1,26 @@
-import {Film} from '../../types/film';
+//import {Film} from '../../types/film';
 import Logo from '../logo/logo';
-import Filmslist from '../films-list/films-list';
-import Genreslist from '../genres-list/genres-list';
+//import Filmslist from '../films-list/films-list';
+//import Genreslist from '../genres-list/genres-list';
 import { useAppSelector } from '../../hooks';
-import ShowMoreButton from '../show-more-button/show-more-button';
+//import ShowMoreButton from '../show-more-button/show-more-button';
 import { AuthorizationStatus } from '../../const';
 import HeadUser from '../head-user/head-user';
 import HeadGuest from '../head-guest/head-guest';
+import Catalog from '../catalog/catalog';
 
 function MainScreen(): JSX.Element {
-  const filmsState: Film[] = useAppSelector((state) => state.films);
+  //const filmsState: Film[] = useAppSelector((state) => state.films);
   const promoFilm = useAppSelector((state) => state.promoFilm);
-  const genreState = useAppSelector((state) => state.genre);
-  const countFilmsState = useAppSelector((state) => state.countFilms);
+  //const genreState = useAppSelector((state) => state.genre);
+  //const countFilmsState = useAppSelector((state) => state.countFilms);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
-  const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
+  //const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
 
-  const sortedSlicedFilms = countFilmsState > sortedFilms.length ?
+  /*const sortedSlicedFilms = countFilmsState > sortedFilms.length ?
     sortedFilms :
-    sortedFilms.slice(0, countFilmsState);
+    sortedFilms.slice(0, countFilmsState);*/
 
   return (
     <>
@@ -70,12 +71,7 @@ function MainScreen(): JSX.Element {
         </div>
       </section>
       <div className="page-content">
-        <section className="catalog">
-          <h2 className="catalog__title visually-hidden">Catalog</h2>
-          {!!filmsState.length && <Genreslist/>}
-          <Filmslist films={sortedSlicedFilms}/>
-          {!(countFilmsState >= sortedFilms.length) && <ShowMoreButton/>}
-        </section>
+        <Catalog/>
         <footer className="page-footer">
           <div className="logo">
             <a href="#todo" className="logo__link logo__link--light">

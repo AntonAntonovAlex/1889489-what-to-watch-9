@@ -1,22 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { AuthorizationStatus, TabType } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { loadFilm } from '../../store/action';
 import { fetchFilmAction } from '../../store/api-actions';
+import FilmDescription from '../film-description/film-description';
 import Filmslist from '../films-list/films-list';
 import HeadGuest from '../head-guest/head-guest';
 import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
-import Tabs from '../tabs/tabs';
 
 function MoviePage(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const params = useParams();
-  const [typeTabs, setTypeTabs] = useState(TabType.Overview);
-  const [activeClassFilm, setActiveClassFilm] = useState([true, false, false]);
 
   useEffect(() => {
     store.dispatch(fetchFilmAction(Number(params.id)));
@@ -176,46 +174,7 @@ function MoviePage(): JSX.Element {
                 height={327}
               />
             </div>
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className={`film-nav__item ${activeClassFilm[0] ? 'film-nav__item--active' : ''}`}>
-                    <a href="#todo" className="film-nav__link"
-                      onClick={(evt: React.MouseEvent<HTMLAnchorElement>) => {
-                        evt.preventDefault();
-                        setTypeTabs(TabType.Overview);
-                        setActiveClassFilm([true, false, false]);
-                      }}
-                    >
-                  Overview
-                    </a>
-                  </li>
-                  <li className={`film-nav__item ${activeClassFilm[1] ? 'film-nav__item--active' : ''}`} >
-                    <a href="#todo" className="film-nav__link"
-                      onClick={(evt: React.MouseEvent<HTMLAnchorElement>) => {
-                        evt.preventDefault();
-                        setTypeTabs(TabType.Details);
-                        setActiveClassFilm([false, true, false]);
-                      }}
-                    >
-                  Details
-                    </a>
-                  </li>
-                  <li className={`film-nav__item ${activeClassFilm[2] ? 'film-nav__item--active' : ''}`} >
-                    <a href="#todo" className="film-nav__link"
-                      onClick={(evt: React.MouseEvent<HTMLAnchorElement>) => {
-                        evt.preventDefault();
-                        setTypeTabs(TabType.Reviews);
-                        setActiveClassFilm([false, false, true]);
-                      }}
-                    >
-                  Reviews
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-              {selectedFilm && <Tabs type={typeTabs}/>}
-            </div>
+            <FilmDescription/>
           </div>
         </div>
       </section>
