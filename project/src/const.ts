@@ -1,8 +1,6 @@
 import { Genre } from './types/genre';
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
-export const STEP_COUNT = 4;
+export const STEP_COUNT = 8;
 
 export enum AppRoute {
   SignIn = '/login',
@@ -10,7 +8,8 @@ export enum AppRoute {
   Film = '/films/:id',
   Main = '/',
   AddReview = '/films/:id/review',
-  Player = '/player/:id'
+  Player = '/player/:id',
+  NotFoundScreen = '*'
 }
 
 export enum AuthorizationStatus {
@@ -46,6 +45,7 @@ export const GenreType: Genre = {
   'Thriller': 'Thrillers',
   'Adventure': 'Adventure',
   'Action': 'Action',
+  'Fantasy': 'Fantasy',
 };
 
 export enum APIRoute {
