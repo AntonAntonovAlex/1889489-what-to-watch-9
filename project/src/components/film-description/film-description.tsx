@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { TabType } from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getFilm } from '../../store/film-data/selectors';
 import Tabs from '../tabs/tabs';
 
 function FilmDescription(): JSX.Element {
-  const selectedFilm = useAppSelector((state) => state.film);
+  const selectedFilm = useAppSelector(getFilm);
 
   const [typeTabs, setTypeTabs] = useState(TabType.Overview);
   const [activeClassFilm, setActiveClassFilm] = useState([true, false, false]);

@@ -1,11 +1,13 @@
 import { GenreType } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeGenre } from '../../store/action';
+import { getFilms } from '../../store/film-data/selectors';
+import { changeGenre } from '../../store/film-process/film-process';
+import { getGenre } from '../../store/film-process/selectors';
 
 
 function Genreslist(): JSX.Element {
-  const filmsState = useAppSelector((state) => state.films);
-  const currentGenre = useAppSelector((state) => state.genre);
+  const filmsState = useAppSelector(getFilms);
+  const currentGenre = useAppSelector(getGenre);
   const filmsStateAllGenres =filmsState.map((film) => film.genre).filter((element, index, genres) => genres.indexOf(element) === index);
 
   const dispatch = useAppDispatch();

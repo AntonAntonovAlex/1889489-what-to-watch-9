@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getAvatarUrl } from '../../store/film-data/selectors';
 
 function HeadUser(): JSX.Element {
-  const avatarUrl = useAppSelector((state) => state.avatarUrl);
+  const avatarUrl = useAppSelector(getAvatarUrl);
 
   const dispatch = useAppDispatch();
 

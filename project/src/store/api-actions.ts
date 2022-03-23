@@ -8,7 +8,9 @@ import { Film } from '../types/film';
 import { ReviewData } from '../types/review-data';
 import { Reviews } from '../types/reviews';
 import { UserData } from '../types/user-data';
-import { loadFilm, loadFilms, loadPromoFilm, redirectToRoute, requireAuthorization, setAvatarUrl } from './action';
+import { redirectToRoute } from './action';
+import { loadFilm, loadFilms, loadPromoFilm, setAvatarUrl } from './film-data/film-data';
+import { requireAuthorization } from './user-process/user-process';
 
 export const fetchFilmsAction = createAsyncThunk(
   'fetchFilms',
