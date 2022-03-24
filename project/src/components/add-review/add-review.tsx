@@ -6,12 +6,14 @@ import { useAppSelector } from '../../hooks';
 import HeadUser from '../head-user/head-user';
 import HeadGuest from '../head-guest/head-guest';
 import { AuthorizationStatus } from '../../const';
+import { getFilms } from '../../store/film-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function AddReview(): JSX.Element {
-  const filmsState: Film[] = useAppSelector((state) => state.films);
+  const filmsState: Film[] = useAppSelector(getFilms);
   const params = useParams();
   const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <section className="film-card film-card--full">
       <div className="film-card__header">

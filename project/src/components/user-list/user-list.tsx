@@ -1,9 +1,10 @@
 import { useAppSelector } from '../../hooks';
+import { getFilms } from '../../store/film-data/selectors';
 import { Film } from '../../types/film';
 import Logo from '../logo/logo';
 
 function UserList(): JSX.Element {
-  const filmsState: Film[] = useAppSelector((state) => state.films);
+  const filmsState: Film[] = useAppSelector(getFilms);
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

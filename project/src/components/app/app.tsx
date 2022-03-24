@@ -14,11 +14,13 @@ import { useAppSelector } from '../../hooks';
 import { isCheckedAuth } from '../../wtw';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
+import { getLoadedDataStatus } from '../../store/film-data/selectors';
 
 function App(): JSX.Element {
-
-  const {authorizationStatus, isDataLoaded} = useAppSelector((state) => state);
-  const filmsState: Film[] = useAppSelector((state) => state.films);
+  const isDataLoaded = useAppSelector(getLoadedDataStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const filmsState: Film[] = useAppSelector(({DATA}) => DATA.films);
   const [firstFilm] = filmsState;
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {

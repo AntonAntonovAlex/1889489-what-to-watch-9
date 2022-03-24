@@ -1,14 +1,15 @@
-import {createReducer} from '@reduxjs/toolkit';
-import { AuthorizationStatus, GenreType, STEP_COUNT } from '../const';
+export {};
+/*import {createReducer} from '@reduxjs/toolkit';
+import { GenreType, STEP_COUNT } from '../const';
 import { Film } from '../types/film';
 import { Reviews } from '../types/reviews';
-import { changeGenre, incrementCountFilms, loadFilm, loadFilms, loadPromoFilm, requireAuthorization, resetState, setAvatarUrl } from './action';
+import { changeGenre, incrementCountFilms, resetState } from './action';
 
 type InitalState = {
   genre: string,
   films: Film[],
   countFilms: number,
-  authorizationStatus: AuthorizationStatus,
+  //authorizationStatus: AuthorizationStatus,
   isDataLoaded: boolean,
   promoFilm: Film | null,
   avatarUrl: string,
@@ -21,7 +22,7 @@ const initialState: InitalState = {
   genre: GenreType.AllGenres,
   films: [],
   countFilms: STEP_COUNT,
-  authorizationStatus: AuthorizationStatus.Unknown,
+  //authorizationStatus: AuthorizationStatus.Unknown,
   isDataLoaded: false,
   promoFilm: null,
   avatarUrl: '',
@@ -30,9 +31,9 @@ const initialState: InitalState = {
   reviews: [],
 };
 
-const reducer = createReducer(initialState, (builder) => {
+/*const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(changeGenre, (state, action) => {
+    /*.addCase(changeGenre, (state, action) => {
       state.genre = action.payload;
     })
     .addCase(incrementCountFilms, (state) => {
@@ -41,8 +42,8 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(resetState, (state) => {
       state.genre = GenreType.AllGenres;
       state.countFilms = STEP_COUNT;
-    })
-    .addCase(loadFilms, (state, action) => {
+    });
+  .addCase(loadFilms, (state, action) => {
       state.films = action.payload;
       state.isDataLoaded = true;
     })
@@ -64,4 +65,4 @@ const reducer = createReducer(initialState, (builder) => {
     });
 });
 
-export {reducer};
+export {reducer};*/

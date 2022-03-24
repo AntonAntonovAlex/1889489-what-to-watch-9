@@ -1,26 +1,15 @@
-//import {Film} from '../../types/film';
 import Logo from '../logo/logo';
-//import Filmslist from '../films-list/films-list';
-//import Genreslist from '../genres-list/genres-list';
 import { useAppSelector } from '../../hooks';
-//import ShowMoreButton from '../show-more-button/show-more-button';
 import { AuthorizationStatus } from '../../const';
 import HeadUser from '../head-user/head-user';
 import HeadGuest from '../head-guest/head-guest';
 import Catalog from '../catalog/catalog';
+import { getPromoFilm } from '../../store/film-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function MainScreen(): JSX.Element {
-  //const filmsState: Film[] = useAppSelector((state) => state.films);
-  const promoFilm = useAppSelector((state) => state.promoFilm);
-  //const genreState = useAppSelector((state) => state.genre);
-  //const countFilmsState = useAppSelector((state) => state.countFilms);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-
-  //const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
-
-  /*const sortedSlicedFilms = countFilmsState > sortedFilms.length ?
-    sortedFilms :
-    sortedFilms.slice(0, countFilmsState);*/
+  const promoFilm = useAppSelector(getPromoFilm);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <>

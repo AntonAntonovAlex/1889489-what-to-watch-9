@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { resetState } from '../../store/action';
+import { resetState } from '../../store/film-process/film-process';
 
 function Logo(): JSX.Element {
   const dispatch = useAppDispatch();

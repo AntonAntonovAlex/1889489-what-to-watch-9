@@ -4,8 +4,10 @@ import { useParams } from 'react-router-dom';
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { loadFilm } from '../../store/action';
 import { fetchFilmAction } from '../../store/api-actions';
+import { loadFilm } from '../../store/film-data/film-data';
+import { getFilm, getSimilarFilms } from '../../store/film-data/selectors';
+import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import FilmDescription from '../film-description/film-description';
 import Filmslist from '../films-list/films-list';
 import HeadGuest from '../head-guest/head-guest';
@@ -13,7 +15,7 @@ import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 
 function MoviePage(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const params = useParams();
 
   useEffect(() => {
@@ -23,8 +25,8 @@ function MoviePage(): JSX.Element {
     };
   }, [params.id]);
 
-  const selectedFilm = useAppSelector((state) => state.film);
-  const similarFilms = useAppSelector((state) => state.similarFilms);
+  const selectedFilm = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
 
   return (
     <>

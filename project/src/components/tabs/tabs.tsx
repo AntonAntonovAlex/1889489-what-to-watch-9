@@ -1,5 +1,6 @@
 import {FilmTextRating, TabType} from '../../const';
 import { useAppSelector } from '../../hooks';
+import { getFilm, getReviews } from '../../store/film-data/selectors';
 
 type TabsProps = {
   type: TabType;
@@ -20,8 +21,8 @@ function getTextRating(raiting: number) {
 }
 
 function Tabs({type}: TabsProps): JSX.Element | null {
-  const selectedFilm = useAppSelector((state) => state.film);
-  const reviews = useAppSelector((state) => state.reviews);
+  const selectedFilm = useAppSelector(getFilm);
+  const reviews = useAppSelector(getReviews);
 
   if (selectedFilm) {
     switch (type) {
