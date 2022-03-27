@@ -8,7 +8,6 @@ import Player from '../player/player';
 import SignIn from '../sign-in/sign-in';
 import UserList from '../user-list/user-list';
 import PrivateRoute from '../private-route/private-route';
-import {Film} from '../../types/film';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
 import { isCheckedAuth } from '../../wtw';
@@ -20,8 +19,6 @@ import { getLoadedDataStatus } from '../../store/film-data/selectors';
 function App(): JSX.Element {
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const filmsState: Film[] = useAppSelector(({DATA}) => DATA.films);
-  const [firstFilm] = filmsState;
 
   if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
     return (
@@ -56,7 +53,7 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.Player}
-          element={<Player film={firstFilm}/>}
+          element={<Player/>}
         />
         <Route
           path={AppRoute.SignIn}

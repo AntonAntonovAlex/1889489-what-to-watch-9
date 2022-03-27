@@ -1,51 +1,27 @@
 import { useAppSelector } from '../../hooks';
-import { getFilms } from '../../store/film-data/selectors';
+import { getUserFilms } from '../../store/film-data/selectors';
 import { Film } from '../../types/film';
+import Filmslist from '../films-list/films-list';
+import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 
 function UserList(): JSX.Element {
-  const filmsState: Film[] = useAppSelector(getFilms);
+
+  const filmsState: Film[] = useAppSelector(getUserFilms);
+
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo />
+        <Logo/>
         <h1 className="page-title user-page__title">My list</h1>
-        <ul className="user-block">
-          <li className="user-block__item">
-            <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width={63} height={63} />
-            </div>
-          </li>
-          <li className="user-block__item">
-            <a href="#todo" className="user-block__link">Sign out</a>
-          </li>
-        </ul>
+        <HeadUser/>
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <div className="catalog__films-list">
-          {filmsState.map((film) => (
-            <article className="small-film-card catalog__films-card" key={film.id}>
-              <div className="small-film-card__image">
-                <img
-                  src={film.previewImage}
-                  alt={film.name}
-                  width={280}
-                  height={175}
-                />
-              </div>
-              <h3 className="small-film-card__title">
-                <a className="small-film-card__link" href="film-page.html">
-                  {film.name}
-                </a>
-              </h3>
-            </article>
-          ))}
-
-        </div>
+        <Filmslist films={filmsState}/>
       </section>
       <footer className="page-footer">
-        <Logo />
+        <Logo/>
         <div className="copyright">
           <p>© 2019 What to watch Ltd.</p>
         </div>

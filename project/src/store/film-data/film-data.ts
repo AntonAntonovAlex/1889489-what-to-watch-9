@@ -10,6 +10,7 @@ const initialState: FilmData = {
   film: null,
   similarFilms: [],
   reviews: [],
+  userfilms: [],
 };
 
 export const filmData = createSlice({
@@ -33,7 +34,17 @@ export const filmData = createSlice({
     setAvatarUrl: (state, action) => {
       state.avatarUrl = action.payload;
     },
+    loadUserFilm: (state, action) => {
+      state.userfilms = action.payload;
+    },
+    changeStatusUserFilm: (state, action) => {
+      if (state.film && !action.payload.isPromo) {
+        state.film.isFavorite = action.payload.status;
+      } else if (state.promoFilm && action.payload.isPromo) {
+        state.promoFilm.isFavorite = action.payload.status;
+      }
+    },
   },
 });
 
-export const {loadFilms, loadPromoFilm, loadFilm, setAvatarUrl} = filmData.actions;
+export const {loadFilms, loadPromoFilm, loadFilm, setAvatarUrl, loadUserFilm, changeStatusUserFilm} = filmData.actions;

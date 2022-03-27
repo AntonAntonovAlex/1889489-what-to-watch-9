@@ -11,3 +11,4 @@ export const getAvatarUrl = (state: State): string => state[NameSpace.data].avat
 export const getFilm = (state: State): Film | null => state[NameSpace.data].film;
 export const getSimilarFilms = (state: State): Film[] => state[NameSpace.data].similarFilms;
 export const getReviews = (state: State): Reviews[] => state[NameSpace.data].reviews;
+export const getUserFilms = (state: State): Film[] => state[NameSpace.data].userfilms;

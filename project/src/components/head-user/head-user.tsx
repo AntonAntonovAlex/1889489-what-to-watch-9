@@ -1,18 +1,26 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { logoutAction } from '../../store/api-actions';
+import { store } from '../../store';
+import { fetchUserFilmsAction, logoutAction } from '../../store/api-actions';
 import { getAvatarUrl } from '../../store/film-data/selectors';
 
 function HeadUser(): JSX.Element {
   const avatarUrl = useAppSelector(getAvatarUrl);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   return (
     <ul className="user-block">
       <li className="user-block__item">
-        <div className="user-block__avatar">
+        <div
+          className="user-block__avatar"
+          onClick={() => {
+            store.dispatch(fetchUserFilmsAction());
+            navigate(AppRoute.MyList);
+          }}
+        >
           <img
             src={avatarUrl}
             alt="User avatar"

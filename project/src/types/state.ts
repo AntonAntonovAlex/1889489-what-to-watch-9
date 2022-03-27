@@ -1,5 +1,3 @@
-//import {store} from '../store/index.js';
-
 import {store} from '../store/index';
 import {AuthorizationStatus} from '../const';
 import { Film } from './film';
@@ -17,11 +15,12 @@ export type FilmData = {
   film: Film | null,
   similarFilms: Film[],
   reviews: Reviews[]
+  userfilms: Film[],
 };
 
 export type FilmProcess = {
   genre: string,
-  countFilms: number
+  countFilms: number,
 };
 
 export type State = ReturnType<typeof store.getState>;
