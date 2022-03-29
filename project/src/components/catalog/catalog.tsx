@@ -17,7 +17,6 @@ function Catalog(): JSX.Element {
     sortedFilms :
     sortedFilms.slice(0, countFilmsState);
 
-
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
