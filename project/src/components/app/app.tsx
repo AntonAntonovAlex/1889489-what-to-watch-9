@@ -45,7 +45,7 @@ function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={authorizationStatus}
+              authorizationStatus={authorizationStatus} isSignIn={false}
             >
               <UserList/>
             </PrivateRoute>
@@ -57,7 +57,13 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.SignIn}
-          element={<SignIn />}
+          element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus} isSignIn
+            >
+              <SignIn/>
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.NotFoundScreen}

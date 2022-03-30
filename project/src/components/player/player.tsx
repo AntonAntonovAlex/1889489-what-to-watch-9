@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/film-data/selectors';
 import { Film } from '../../types/film';
+import { TailSpin } from  'react-loader-spinner';
 
 function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -63,8 +64,19 @@ function Player(): JSX.Element {
 
   return (
     <div className="player" onClick={onPlayButtonClick}>
-      {isLoading && <span> Loading... </span>}
-      <video src={selectedFilm?.videoLink} className="player__video" poster={selectedFilm?.previewImage} autoPlay muted ref={videoRef}/>
+      {isLoading ?
+        <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
+          {<TailSpin color="#00BFFF" height={80} width={80} />}
+        </div> :
+        ''}
+      <video
+        src={selectedFilm?.videoLink}
+        className="player__video"
+        poster={selectedFilm?.previewImage}
+        autoPlay
+        muted
+        ref={videoRef}
+      />
       <button
         onClick={() => navigate(`${'/films/'}${selectedFilm?.id}`)}
         type="button"

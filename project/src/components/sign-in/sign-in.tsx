@@ -52,6 +52,7 @@ function SignIn(): JSX.Element {
             </div>
             <div className="sign-in__field">
               <input
+                pattern="[A-Za-z]+[0-9]+"
                 ref={passwordRef}
                 className="sign-in__input"
                 type="password"

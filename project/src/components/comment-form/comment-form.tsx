@@ -1,4 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
+import { maxCommentLength, minCommentLength } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
@@ -10,6 +11,7 @@ type CommentFormProps = {
 function CommentForm({filmId}: CommentFormProps): JSX.Element {
   const [userComment, setUserComment] = useState('');
   const [userRating, setUserRating] = useState(8);
+  const [isDisabledForm, setIsDisabledForm] = useState(false);
 
   const fieldChangeHandle = ({ target}: ChangeEvent<HTMLInputElement>) => {
     setUserRating(+target.value);
@@ -23,6 +25,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsDisabledForm(true);
 
     if (userRating !== null && userComment !== null && filmId !== undefined) {
       onSubmit({
@@ -38,6 +41,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
       <div className="rating">
         <div className="rating__stars">
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-10"
             type="radio"
@@ -49,6 +53,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 10
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-9"
             type="radio"
@@ -60,6 +65,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 9
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-8"
             type="radio"
@@ -72,6 +78,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 8
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-7"
             type="radio"
@@ -83,6 +90,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 7
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-6"
             type="radio"
@@ -94,6 +102,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 6
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-5"
             type="radio"
@@ -105,6 +114,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 5
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-4"
             type="radio"
@@ -116,6 +126,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 4
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-3"
             type="radio"
@@ -127,6 +138,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 3
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-2"
             type="radio"
@@ -138,6 +150,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
             Rating 2
           </label>
           <input
+            disabled={isDisabledForm}
             className="rating__input"
             id="star-1"
             type="radio"
@@ -152,6 +165,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
       </div>
       <div className="add-review__text">
         <textarea
+          disabled={isDisabledForm}
           className="add-review__textarea"
           name="review-text"
           id="review-text"
@@ -163,7 +177,10 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
           value={userComment}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">
+          <button className="add-review__btn"
+            type="submit"
+            disabled={!(userComment.length >= minCommentLength && userComment.length < maxCommentLength && !isDisabledForm)}
+          >
             Post
           </button>
         </div>

@@ -8,7 +8,7 @@ import { getGenre } from '../../store/film-process/selectors';
 function Genreslist(): JSX.Element {
   const filmsState = useAppSelector(getFilms);
   const currentGenre = useAppSelector(getGenre);
-  const filmsStateAllGenres =filmsState.map((film) => film.genre).filter((element, index, genres) => genres.indexOf(element) === index);
+  const filmsStateAllGenres =filmsState.map((film) => film.genre).filter((element, index, genres) => genres.indexOf(element) === index).slice(0, 9);
 
   const dispatch = useAppDispatch();
 
