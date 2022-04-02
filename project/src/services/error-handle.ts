@@ -17,9 +17,6 @@ export const errorHandle = (error: ErrorType): void => {
       case HTTP_CODE.BAD_REQUEST:
         toast.info(response.data.error);
         break;
-      case HTTP_CODE.UNAUTHORIZED:
-        toast.info(response.data.error);
-        break;
       case HTTP_CODE.NOT_FOUND:
         toast.info(response.data.error);
         store.dispatch(redirectToRoute(AppRoute.NotFoundScreen));

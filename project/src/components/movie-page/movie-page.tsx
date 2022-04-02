@@ -183,7 +183,7 @@ function MoviePage(): JSX.Element {
       </section>
       <div className="page-content">
         <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">{similarFilms? '' : 'More like this'}</h2>
+          <h2 className="catalog__title">{similarFilms ? 'More like this' : ''}</h2>
           {<Filmslist films={similarFilms}/>}
         </section>
         <footer className="page-footer">

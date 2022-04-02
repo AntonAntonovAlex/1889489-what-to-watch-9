@@ -13,14 +13,14 @@ function FilmCard({film, isActive, onMouseEventCallback}: FilmCardProps): JSX.El
 
   return (
     <article className="small-film-card catalog__films-card" data-id={film.id} key={film.id} onMouseEnter={onMouseEventCallback} onMouseLeave={onMouseEventCallback}>
-      <div className="small-film-card__image">
-        <VideoPlayer previewVideoLink={film.previewVideoLink} previewImage={film.previewImage} isActive={isActive}/>
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`${'/films/'}${film.id}`}>
+      <Link className="small-film-card__link" to={`${'/films/'}${film.id}`}>
+        <div className="small-film-card__image">
+          <VideoPlayer previewVideoLink={film.previewVideoLink} previewImage={film.previewImage} isActive={isActive}/>
+        </div>
+        <h3 className="small-film-card__title">
           {film.name}
-        </Link>
-      </h3>
+        </h3>
+      </Link>
     </article>
   );
 }
