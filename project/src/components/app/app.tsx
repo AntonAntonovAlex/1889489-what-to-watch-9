@@ -10,7 +10,7 @@ import UserList from '../user-list/user-list';
 import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
-import { isCheckedAuth } from '../../wtw';
+import { isAuthorizationStatusUnknown } from '../../wtw';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -20,7 +20,7 @@ function App(): JSX.Element {
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (isAuthorizationStatusUnknown(authorizationStatus) || !isDataLoaded) {
     return (
       <LoadingScreen />
     );

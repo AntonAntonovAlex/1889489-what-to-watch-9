@@ -4,11 +4,11 @@ import { getFilms } from '../../store/film-data/selectors';
 import { changeGenre } from '../../store/film-process/film-process';
 import { getGenre } from '../../store/film-process/selectors';
 
-
 function Genreslist(): JSX.Element {
-  const filmsState = useAppSelector(getFilms);
+  const filmsList = useAppSelector(getFilms);
   const currentGenre = useAppSelector(getGenre);
-  const filmsStateAllGenres =filmsState.map((film) => film.genre).filter((element, index, genres) => genres.indexOf(element) === index).slice(0, 9);
+
+  const filmsListAllGenres =filmsList.map((film) => film.genre).filter((element, index, genres) => genres.indexOf(element) === index).slice(0, 9);
 
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ function Genreslist(): JSX.Element {
             All genres
         </a>
       </li>
-      {filmsStateAllGenres.map((genre) => (
+      {filmsListAllGenres.map((genre) => (
         <li className={currentGenre === genre ? 'catalog__genres-item catalog__genres-item--active' : 'catalog__genres-item'} key={genre}>
           <a href="#todo" className="catalog__genres-link"
             onClick={(evt: { currentTarget:  HTMLElement }) => {

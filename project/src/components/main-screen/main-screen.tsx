@@ -8,6 +8,7 @@ import { getPromoFilm } from '../../store/film-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { useNavigate } from 'react-router-dom';
 import FavoriteButton from '../favorite-button/favorite-button';
+import Footer from '../footer/footer';
 
 function MainScreen(): JSX.Element {
   const promoFilm = useAppSelector(getPromoFilm);
@@ -25,7 +26,7 @@ function MainScreen(): JSX.Element {
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header film-card__head">
-          <Logo />
+          <Logo/>
           {authorizationStatus === AuthorizationStatus.Auth ? <HeadUser/> : <HeadGuest/>}
         </header>
         <div className="film-card__wrap">
@@ -63,18 +64,7 @@ function MainScreen(): JSX.Element {
       </section>
       <div className="page-content">
         <Catalog/>
-        <footer className="page-footer">
-          <div className="logo">
-            <a href="#todo" className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
 

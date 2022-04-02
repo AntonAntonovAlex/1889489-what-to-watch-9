@@ -11,14 +11,16 @@ type FilmCardProps = {
 
 function FilmCard({film, isActive, onMouseEventCallback}: FilmCardProps): JSX.Element {
 
+  const {id, previewImage, previewVideoLink, name} = film;
+
   return (
-    <article className="small-film-card catalog__films-card" data-id={film.id} key={film.id} onMouseEnter={onMouseEventCallback} onMouseLeave={onMouseEventCallback}>
-      <Link className="small-film-card__link" to={`${'/films/'}${film.id}`}>
+    <article className="small-film-card catalog__films-card" data-id={id} key={id} onMouseEnter={onMouseEventCallback} onMouseLeave={onMouseEventCallback}>
+      <Link className="small-film-card__link" to={`${'/films/'}${id}`}>
         <div className="small-film-card__image">
-          <VideoPlayer previewVideoLink={film.previewVideoLink} previewImage={film.previewImage} isActive={isActive}/>
+          <VideoPlayer previewVideoLink={previewVideoLink} previewImage={previewImage} isActive={isActive}/>
         </div>
         <h3 className="small-film-card__title">
-          {film.name}
+          {name}
         </h3>
       </Link>
     </article>

@@ -2,6 +2,7 @@ import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
+import Footer from '../footer/footer';
 import Logo from '../logo/logo';
 
 function SignIn(): JSX.Element {
@@ -28,7 +29,7 @@ function SignIn(): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
-        <Logo />
+        <Logo/>
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
@@ -75,12 +76,7 @@ function SignIn(): JSX.Element {
           </div>
         </form>
       </div>
-      <footer className="page-footer">
-        <Logo />
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
 
   );

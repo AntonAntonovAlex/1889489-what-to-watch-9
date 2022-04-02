@@ -10,9 +10,9 @@ import { getFilms } from '../../store/film-data/selectors';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 
 function AddReview(): JSX.Element {
-  const filmsState: Film[] = useAppSelector(getFilms);
+  const filmsList: Film[] = useAppSelector(getFilms);
   const params = useParams();
-  const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
+  const selectedFilm = filmsList.find((film) => film.id === Number(params.id));
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   return (
     <section className="film-card film-card--full">

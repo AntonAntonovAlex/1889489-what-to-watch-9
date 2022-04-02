@@ -12,9 +12,9 @@ function Player(): JSX.Element {
   const [count, setCount] = useState(0);
   const navigate = useNavigate();
 
-  const filmsState: Film[] = useAppSelector(getFilms);
+  const filmsList: Film[] = useAppSelector(getFilms);
   const params = useParams();
-  const selectedFilm = filmsState.find((film) => film.id === Number(params.id));
+  const selectedFilm = filmsList.find((film) => film.id === Number(params.id));
 
   function onPlayButtonClick() {
     if (videoRef.current) {

@@ -11,17 +11,20 @@ import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import FavoriteButton from '../favorite-button/favorite-button';
 import FilmDescription from '../film-description/film-description';
 import Filmslist from '../films-list/films-list';
+import Footer from '../footer/footer';
 import HeadGuest from '../head-guest/head-guest';
 import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 
 function MoviePage(): JSX.Element {
+  const maxCountsimilarFilms = 4;
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const params = useParams();
   const navigate = useNavigate();
 
   const selectedFilm = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilarFilms).slice(0, 4);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, maxCountsimilarFilms);
 
   useEffect(() => {
     store.dispatch(fetchFilmAction(Number(params.id)));
@@ -33,13 +36,11 @@ function MoviePage(): JSX.Element {
   return (
     <>
       <div className="visually-hidden">
-        {/* inject:svg */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           xmlnsXlink="http://www.w3.org/1999/xlink"
         >
           <symbol id="add" viewBox="0 0 19 20">
-            {/* Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch */}
             <title>+</title>
             <desc>Created with Sketch.</desc>
             <g
@@ -103,7 +104,6 @@ function MoviePage(): JSX.Element {
                 fill="#EEE5B5"
               />
             </symbol>
-            {/* Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch */}
             <title>Artboard</title>
             <desc>Created with Sketch.</desc>
             <g
@@ -128,7 +128,6 @@ function MoviePage(): JSX.Element {
             </g>
           </symbol>
         </svg>
-        {/* endinject */}
       </div>
       <section className="film-card film-card--full">
         <div className="film-card__hero">
@@ -140,7 +139,7 @@ function MoviePage(): JSX.Element {
           </div>
           <h1 className="visually-hidden">WTW</h1>
           <header className="page-header film-card__head">
-            <Logo />
+            <Logo/>
             {authorizationStatus === AuthorizationStatus.Auth ? <HeadUser/> : <HeadGuest/>}
           </header>
           <div className="film-card__wrap">
@@ -186,12 +185,7 @@ function MoviePage(): JSX.Element {
           <h2 className="catalog__title">{similarFilms ? 'More like this' : ''}</h2>
           {<Filmslist films={similarFilms}/>}
         </section>
-        <footer className="page-footer">
-          <Logo />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </>
 

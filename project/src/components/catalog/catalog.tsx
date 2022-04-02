@@ -1,28 +1,28 @@
 import { useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/film-data/selectors';
-import { getCountFilms, getGenre } from '../../store/film-process/selectors';
+import { loadedFilmsNumber, getGenre } from '../../store/film-process/selectors';
 import { Film } from '../../types/film';
 import Filmslist from '../films-list/films-list';
 import Genreslist from '../genres-list/genres-list';
 import ShowMoreButton from '../show-more-button/show-more-button';
 
 function Catalog(): JSX.Element {
-  const filmsState: Film[] = useAppSelector(getFilms);
-  const countFilmsState = useAppSelector(getCountFilms);
+  const filmsList: Film[] = useAppSelector(getFilms);
+  const countfilmsList = useAppSelector(loadedFilmsNumber);
   const genreState = useAppSelector(getGenre);
 
-  const sortedFilms = genreState === 'All genres'? filmsState : filmsState.filter((film) => film.genre === genreState);
+  const sortedFilms = genreState === 'All genres'? filmsList : filmsList.filter((film) => film.genre === genreState);
 
-  const sortedSlicedFilms = countFilmsState > sortedFilms.length ?
+  const sortedSlicedFilms = countfilmsList > sortedFilms.length ?
     sortedFilms :
-    sortedFilms.slice(0, countFilmsState);
+    sortedFilms.slice(0, countfilmsList);
 
   return (
     <section className="catalog">
       <h2 className="catalog__title visually-hidden">Catalog</h2>
-      {!!filmsState.length && <Genreslist/>}
+      {!!filmsList.length && <Genreslist/>}
       <Filmslist films={sortedSlicedFilms}/>
-      {!(countFilmsState >= sortedFilms.length) && <ShowMoreButton/>}
+      {!(countfilmsList >= sortedFilms.length) && <ShowMoreButton/>}
     </section>
   );
 }

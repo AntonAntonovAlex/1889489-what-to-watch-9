@@ -2,12 +2,13 @@ import { useAppSelector } from '../../hooks';
 import { getUserFilms } from '../../store/film-data/selectors';
 import { Film } from '../../types/film';
 import Filmslist from '../films-list/films-list';
+import Footer from '../footer/footer';
 import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 
 function UserList(): JSX.Element {
 
-  const filmsState: Film[] = useAppSelector(getUserFilms);
+  const filmsList: Film[] = useAppSelector(getUserFilms);
 
   return (
     <div className="user-page">
@@ -18,14 +19,9 @@ function UserList(): JSX.Element {
       </header>
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
-        <Filmslist films={filmsState}/>
+        <Filmslist films={filmsList}/>
       </section>
-      <footer className="page-footer">
-        <Logo/>
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer/>
     </div>
   );
 }
