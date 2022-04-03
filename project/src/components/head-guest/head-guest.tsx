@@ -9,7 +9,7 @@ function HeadGuest(): JSX.Element {
         className="user-block__link"
         to={AppRoute.SignIn}
       >
-                Sign in
+        Sign in
       </Link>
     </div>
   );

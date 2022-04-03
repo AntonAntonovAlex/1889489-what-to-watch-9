@@ -2,6 +2,9 @@ import { Genre } from './types/genre';
 
 export const STEP_COUNT = 8;
 
+export const minCommentLength = 50;
+export const maxCommentLength = 400;
+
 export enum AppRoute {
   SignIn = '/login',
   MyList = '/mylist',

@@ -1,4 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
+import { maxCommentLength, minCommentLength } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
@@ -9,7 +10,8 @@ type CommentFormProps = {
 
 function CommentForm({filmId}: CommentFormProps): JSX.Element {
   const [userComment, setUserComment] = useState('');
-  const [userRating, setUserRating] = useState(8);
+  const [userRating, setUserRating] = useState(0);
+  const [isDisabledForm, setIsDisabledForm] = useState(false);
 
   const fieldChangeHandle = ({ target}: ChangeEvent<HTMLInputElement>) => {
     setUserRating(+target.value);
@@ -23,6 +25,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsDisabledForm(true);
 
     if (userRating !== null && userComment !== null && filmId !== undefined) {
       onSubmit({
@@ -33,125 +36,44 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
     }
   };
 
+  function getRatingStars() {
+    const raitingStarsItems = [];
+
+    for (let i = 10; i > 0; i--) {
+      raitingStarsItems.push(
+        <input
+          key={`input_star-${i}`}
+          disabled={isDisabledForm}
+          className="rating__input"
+          id={`star-${i}`}
+          type="radio"
+          name="rating"
+          defaultValue={i}
+          onChange={fieldChangeHandle}
+        />,
+      );
+      raitingStarsItems.push(
+        <label key={`label_star-${i}`} className="rating__label" htmlFor={`star-${i}`}>
+    Rating {i}
+        </label>,
+      );
+    }
+
+    return (
+      raitingStarsItems
+    );
+  }
+
   return (
     <form action="#" className="add-review__form" onSubmit={handleSubmit}>
       <div className="rating">
         <div className="rating__stars">
-          <input
-            className="rating__input"
-            id="star-10"
-            type="radio"
-            name="rating"
-            defaultValue={10}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-10">
-            Rating 10
-          </label>
-          <input
-            className="rating__input"
-            id="star-9"
-            type="radio"
-            name="rating"
-            defaultValue={9}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-9">
-            Rating 9
-          </label>
-          <input
-            className="rating__input"
-            id="star-8"
-            type="radio"
-            name="rating"
-            defaultValue={8}
-            defaultChecked
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-8">
-            Rating 8
-          </label>
-          <input
-            className="rating__input"
-            id="star-7"
-            type="radio"
-            name="rating"
-            defaultValue={7}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-7">
-            Rating 7
-          </label>
-          <input
-            className="rating__input"
-            id="star-6"
-            type="radio"
-            name="rating"
-            defaultValue={6}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-6">
-            Rating 6
-          </label>
-          <input
-            className="rating__input"
-            id="star-5"
-            type="radio"
-            name="rating"
-            defaultValue={5}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-5">
-            Rating 5
-          </label>
-          <input
-            className="rating__input"
-            id="star-4"
-            type="radio"
-            name="rating"
-            defaultValue={4}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-4">
-            Rating 4
-          </label>
-          <input
-            className="rating__input"
-            id="star-3"
-            type="radio"
-            name="rating"
-            defaultValue={3}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-3">
-            Rating 3
-          </label>
-          <input
-            className="rating__input"
-            id="star-2"
-            type="radio"
-            name="rating"
-            defaultValue={2}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-2">
-            Rating 2
-          </label>
-          <input
-            className="rating__input"
-            id="star-1"
-            type="radio"
-            name="rating"
-            defaultValue={1}
-            onChange={fieldChangeHandle}
-          />
-          <label className="rating__label" htmlFor="star-1">
-            Rating 1
-          </label>
+          {getRatingStars()}
         </div>
       </div>
       <div className="add-review__text">
         <textarea
+          disabled={isDisabledForm}
           className="add-review__textarea"
           name="review-text"
           id="review-text"
@@ -163,7 +85,10 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
           value={userComment}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit">
+          <button className="add-review__btn"
+            type="submit"
+            disabled={!(userComment.length >= minCommentLength && userComment.length < maxCommentLength && !isDisabledForm && userRating !== 0)}
+          >
             Post
           </button>
         </div>

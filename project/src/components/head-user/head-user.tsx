@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchUserFilmsAction, logoutAction } from '../../store/api-actions';
+import { checkAuthAction, fetchFilmsAction, fetchPromoFilmAction, fetchUserFilmsAction, logoutAction } from '../../store/api-actions';
 import { getAvatarUrl } from '../../store/film-data/selectors';
 
 function HeadUser(): JSX.Element {
@@ -35,10 +35,13 @@ function HeadUser(): JSX.Element {
           onClick={(evt) => {
             evt.preventDefault();
             dispatch(logoutAction());
+            store.dispatch(fetchFilmsAction());
+            store.dispatch(fetchPromoFilmAction());
+            store.dispatch(checkAuthAction());
           }}
           to={AppRoute.Main}
         >
-                  Sign out
+          Sign out
         </Link>
       </li>
     </ul>

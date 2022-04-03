@@ -10,7 +10,7 @@ import UserList from '../user-list/user-list';
 import PrivateRoute from '../private-route/private-route';
 import LoadingScreen from '../loading-screen/loading-screen';
 import { useAppSelector } from '../../hooks';
-import { isCheckedAuth } from '../../wtw';
+import { isAuthorizationStatusUnknown } from '../../wtw';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
@@ -20,7 +20,7 @@ function App(): JSX.Element {
   const isDataLoaded = useAppSelector(getLoadedDataStatus);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
-  if (isCheckedAuth(authorizationStatus) || !isDataLoaded) {
+  if (isAuthorizationStatusUnknown(authorizationStatus) || !isDataLoaded) {
     return (
       <LoadingScreen />
     );
@@ -45,7 +45,7 @@ function App(): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute
-              authorizationStatus={authorizationStatus}
+              authorizationStatus={authorizationStatus} isSignIn={false}
             >
               <UserList/>
             </PrivateRoute>
@@ -57,7 +57,13 @@ function App(): JSX.Element {
         />
         <Route
           path={AppRoute.SignIn}
-          element={<SignIn />}
+          element={
+            <PrivateRoute
+              authorizationStatus={authorizationStatus} isSignIn
+            >
+              <SignIn/>
+            </PrivateRoute>
+          }
         />
         <Route
           path={AppRoute.NotFoundScreen}
