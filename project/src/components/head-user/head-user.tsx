@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { checkAuthAction, fetchFilmsAction, fetchPromoFilmAction, fetchUserFilmsAction, logoutAction } from '../../store/api-actions';
+import { checkAuthAction, fetchFilmAction, fetchFilmsAction, fetchPromoFilmAction, fetchUserFilmsAction, logoutAction } from '../../store/api-actions';
 import { getAvatarUrl } from '../../store/film-data/selectors';
 
 function HeadUser(): JSX.Element {
@@ -10,6 +10,7 @@ function HeadUser(): JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
   return (
     <ul className="user-block">
@@ -37,6 +38,7 @@ function HeadUser(): JSX.Element {
             dispatch(logoutAction());
             store.dispatch(fetchFilmsAction());
             store.dispatch(fetchPromoFilmAction());
+            if (params.id) {store.dispatch(fetchFilmAction(Number(params.id)));}
             store.dispatch(checkAuthAction());
           }}
           to={AppRoute.Main}

@@ -1,5 +1,5 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
-import { maxCommentLength, minCommentLength } from '../../const';
+import { MAX_COMMENT_LENGTH, MIN_COMMENT_LENGTH } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { sendReviewAction } from '../../store/api-actions';
 import { ReviewData } from '../../types/review-data';
@@ -13,25 +13,26 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
   const [userRating, setUserRating] = useState(0);
   const [isDisabledForm, setIsDisabledForm] = useState(false);
 
-  const fieldChangeHandle = ({ target}: ChangeEvent<HTMLInputElement>) => {
+  const handleRatingChange = ({ target}: ChangeEvent<HTMLInputElement>) => {
     setUserRating(+target.value);
   };
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (reviewData: ReviewData) => {
+  const sendReview = (reviewData: ReviewData) => {
     dispatch(sendReviewAction(reviewData));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     setIsDisabledForm(true);
 
     if (userRating !== null && userComment !== null && filmId !== undefined) {
-      onSubmit({
+      sendReview({
         comment: userComment,
         rating: userRating,
         id: filmId,
+        sendReviewCallback: () => setIsDisabledForm(false),
       });
     }
   };
@@ -49,7 +50,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
           type="radio"
           name="rating"
           defaultValue={i}
-          onChange={fieldChangeHandle}
+          onChange={handleRatingChange}
         />,
       );
       raitingStarsItems.push(
@@ -65,7 +66,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
   }
 
   return (
-    <form action="#" className="add-review__form" onSubmit={handleSubmit}>
+    <form action="#" className="add-review__form" onSubmit={handleFormSubmit}>
       <div className="rating">
         <div className="rating__stars">
           {getRatingStars()}
@@ -87,7 +88,7 @@ function CommentForm({filmId}: CommentFormProps): JSX.Element {
         <div className="add-review__submit">
           <button className="add-review__btn"
             type="submit"
-            disabled={!(userComment.length >= minCommentLength && userComment.length < maxCommentLength && !isDisabledForm && userRating !== 0)}
+            disabled={!(userComment.length >= MIN_COMMENT_LENGTH && userComment.length < MAX_COMMENT_LENGTH && !isDisabledForm && userRating !== 0)}
           >
             Post
           </button>

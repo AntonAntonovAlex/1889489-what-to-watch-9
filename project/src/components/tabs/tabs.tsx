@@ -1,4 +1,4 @@
-import {FilmTextRating, TabType} from '../../const';
+import {FilmRating, FilmTextRating, TabType} from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getFilm, getReviews } from '../../store/film-data/selectors';
 
@@ -13,11 +13,11 @@ function getReviewDate(date: string, isProperty: boolean) {
 }
 
 function getTextRating(raiting: number) {
-  if (0 <= raiting && raiting < 3) {return FilmTextRating.Bad;}
-  if (3 <= raiting && raiting < 5) {return FilmTextRating.Normal;}
-  if (5 <= raiting && raiting < 8) {return FilmTextRating.Good;}
-  if (8 <= raiting && raiting < 10) {return FilmTextRating.VeryGood;}
-  if (raiting === 10) {return FilmTextRating.Awesome;}
+  if (raiting < FilmRating.Normal) {return FilmTextRating.Bad;}
+  if (raiting < FilmRating.Good) {return FilmTextRating.Normal;}
+  if (raiting < FilmRating.VeryGood) {return FilmTextRating.Good;}
+  if (raiting < FilmRating.Awesome) {return FilmTextRating.VeryGood;}
+  return FilmTextRating.Awesome;
 }
 
 function Tabs({type}: TabsProps): JSX.Element | null {

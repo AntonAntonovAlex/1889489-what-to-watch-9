@@ -125,11 +125,12 @@ export const sendReviewAction = createAsyncThunk<void, ReviewData, {
   extra: AxiosInstance
 }>(
   'review',
-  async ({comment, rating, id}, {dispatch, extra: api}) => {
+  async ({comment, rating, id, sendReviewCallback}, {dispatch, extra: api}) => {
     try {
       await api.post<UserData>(`${APIRoute.Comments}/${id}`, {comment, rating});
       dispatch(redirectToRoute(`${APIRoute.Films}/${id}`));
     } catch (error) {
+      sendReviewCallback();
       errorHandle(error);
     }
   },

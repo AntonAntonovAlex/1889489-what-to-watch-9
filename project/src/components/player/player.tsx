@@ -4,6 +4,7 @@ import { useAppSelector } from '../../hooks';
 import { getFilms } from '../../store/film-data/selectors';
 import { Film } from '../../types/film';
 import { TailSpin } from  'react-loader-spinner';
+import { MAX_PLAYER_PROGRESS, MIN_PLAYER_PROGRESS, SPIN_HEIGHT, SPIN_WIDTH, TIME_MULTIPLIER, VIDEO_DELAY } from '../../const';
 
 function Player(): JSX.Element {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -16,7 +17,7 @@ function Player(): JSX.Element {
   const params = useParams();
   const selectedFilm = filmsList.find((film) => film.id === Number(params.id));
 
-  function onPlayButtonClick() {
+  function handlePlayButtonClick() {
     if (videoRef.current) {
       isPlaying ? videoRef.current.pause() : videoRef.current.play();
     }
@@ -24,15 +25,17 @@ function Player(): JSX.Element {
   }
 
   function getTime(second: number) {
-    const hours = Math.floor(second / 60 / 60);
-    const minutes = Math.floor(second / 60) - (hours * 60);
-    const seconds = second % 60;
+    const hours = Math.floor(second / TIME_MULTIPLIER / TIME_MULTIPLIER);
+    const minutes = Math.floor(second / TIME_MULTIPLIER) - (hours * TIME_MULTIPLIER);
+    const seconds = second % TIME_MULTIPLIER;
 
     return hours === 0 ? `${minutes}:${seconds}`: `${hours}:${minutes}:${seconds}`;
   }
 
   function getPlaybackPercent (second: number) {
-    return videoRef.current ? Math.round((videoRef.current.duration - second)/videoRef.current.duration * 100) : 0;
+    return videoRef.current ?
+      Math.round((videoRef.current.duration - second)/videoRef.current.duration * MAX_PLAYER_PROGRESS):
+      MIN_PLAYER_PROGRESS;
   }
 
   useEffect(() => {
@@ -42,7 +45,7 @@ function Player(): JSX.Element {
         if (videoRef.current) {
           setCount(Math.round(videoRef.current.duration - videoRef.current.currentTime));
         }
-      }, 1000);
+      }, VIDEO_DELAY);
     }
     return () => {
       clearInterval(intervalId);
@@ -63,10 +66,10 @@ function Player(): JSX.Element {
   }, [selectedFilm]);
 
   return (
-    <div className="player" onClick={onPlayButtonClick}>
+    <div className="player" onClick={handlePlayButtonClick}>
       {isLoading ?
         <div style={{position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-          {<TailSpin color="#00BFFF" height={80} width={80} />}
+          {<TailSpin color="#00BFFF" height={SPIN_HEIGHT} width={SPIN_WIDTH}/>}
         </div> :
         ''}
       <video
@@ -87,7 +90,7 @@ function Player(): JSX.Element {
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={getPlaybackPercent(count)} max={100} />
+            <progress className="player__progress" value={getPlaybackPercent(count)} max={MAX_PLAYER_PROGRESS}/>
             <div className="player__toggler" style={{ left: `${getPlaybackPercent(count)}%` }}>
           Toggler
             </div>
@@ -96,9 +99,9 @@ function Player(): JSX.Element {
         </div>
         <div className="player__controls-row">
           <button type="button" className="player__play"
-            onClick={onPlayButtonClick}
+            onClick={handlePlayButtonClick}
           >
-            <svg viewBox="0 0 19 19" width={19} height={19}>
+            <svg viewBox="0 0 19 19" width="19" height="19">
               <use xlinkHref={isPlaying ? '#pause' : '#play-s'} />
             </svg>
             <span>Play</span>
@@ -111,7 +114,7 @@ function Player(): JSX.Element {
               }
             }}
           >
-            <svg viewBox="0 0 27 27" width={27} height={27}>
+            <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen" />
             </svg>
             <span>Full screen</span>

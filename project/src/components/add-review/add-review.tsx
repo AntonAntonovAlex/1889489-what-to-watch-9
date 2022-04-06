@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Film } from '../../types/film';
 import Logo from '../logo/logo';
 import CommentForm from '../comment-form/comment-form';
@@ -29,12 +29,12 @@ function AddReview(): JSX.Element {
           <nav className="breadcrumbs">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a href="film-page.html" className="breadcrumbs__link">
+                <Link to={`${'/films/'}${selectedFilm?.id}`} className="breadcrumbs__link">
                   {selectedFilm?.name}
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
-                <a href="#todo" className="breadcrumbs__link">Add review</a>
+                <Link to={`${'/films/'}${selectedFilm?.id}${'/review'}`} className="breadcrumbs__link">Add review</Link>
               </li>
             </ul>
           </nav>

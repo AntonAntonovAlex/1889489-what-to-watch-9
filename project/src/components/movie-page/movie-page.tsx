@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, MAX_COUNT_SIMILAR_FILM } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
 import { fetchFilmAction } from '../../store/api-actions';
@@ -17,14 +17,12 @@ import HeadUser from '../head-user/head-user';
 import Logo from '../logo/logo';
 
 function MoviePage(): JSX.Element {
-  const maxCountsimilarFilms = 4;
-
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const params = useParams();
   const navigate = useNavigate();
 
   const selectedFilm = useAppSelector(getFilm);
-  const similarFilms = useAppSelector(getSimilarFilms).slice(0, maxCountsimilarFilms);
+  const similarFilms = useAppSelector(getSimilarFilms).slice(0, MAX_COUNT_SIMILAR_FILM);
 
   useEffect(() => {
     store.dispatch(fetchFilmAction(Number(params.id)));

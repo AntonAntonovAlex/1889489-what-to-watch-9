@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
-
-const timerDelay = 1000;
+import { TIMER_DELAY } from '../../const';
 
 type VideoPlayerProps = {
   previewVideoLink: string;
@@ -14,7 +13,7 @@ function VideoPlayer({previewVideoLink, previewImage, isActive }: VideoPlayerPro
   useEffect(() => {
     let timer: NodeJS.Timer;
     if (videoRef.current !== null && isActive) {
-      timer = setTimeout(() => videoRef.current?.play(), timerDelay);
+      timer = setTimeout(() => videoRef.current?.play(), TIMER_DELAY);
     }
     if (videoRef.current !== null && !isActive) {
       videoRef.current.pause();

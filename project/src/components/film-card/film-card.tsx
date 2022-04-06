@@ -6,16 +6,16 @@ import VideoPlayer from '../video-player/video-player';
 type FilmCardProps = {
   film: Film;
   isActive: boolean;
-  onMouseEventCallback: MouseEventHandler<HTMLElement>;
+  onEventStartCallback: MouseEventHandler<HTMLElement>;
+  onEventStopCallback: MouseEventHandler<HTMLElement>;
 }
 
-function FilmCard({film, isActive, onMouseEventCallback}: FilmCardProps): JSX.Element {
+function FilmCard({film, isActive, onEventStartCallback, onEventStopCallback}: FilmCardProps): JSX.Element {
 
   const {id, previewImage, previewVideoLink, name} = film;
-
   return (
-    <article className="small-film-card catalog__films-card" data-id={id} key={id} onMouseEnter={onMouseEventCallback} onMouseLeave={onMouseEventCallback}>
-      <Link className="small-film-card__link" to={`${'/films/'}${id}`}>
+    <article className="small-film-card catalog__films-card" data-id={id} key={id} onMouseEnter={onEventStartCallback} onMouseLeave={onEventStopCallback}>
+      <Link className="small-film-card__link" to={`${'/films/'}${id}`} onClick={onEventStopCallback}>
         <div className="small-film-card__image">
           <VideoPlayer previewVideoLink={previewVideoLink} previewImage={previewImage} isActive={isActive}/>
         </div>

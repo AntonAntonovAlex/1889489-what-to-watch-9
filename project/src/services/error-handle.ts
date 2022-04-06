@@ -1,5 +1,5 @@
 import request from 'axios';
-import { AppRoute, HTTP_CODE } from '../const';
+import { AppRoute, HttpCode } from '../const';
 import { ErrorType } from '../types/error';
 import {toast} from 'react-toastify';
 import { store } from '../store';
@@ -14,16 +14,21 @@ export const errorHandle = (error: ErrorType): void => {
 
   if (response) {
     switch (response.status) {
-      case HTTP_CODE.BAD_REQUEST:
+      case HttpCode.BadRequest:
+        toast.error(response.data.error);
+        break;
+      case HttpCode.Unauthorized:
         toast.info(response.data.error);
         break;
-      case HTTP_CODE.UNAUTHORIZED:
-        toast.info(response.data.error);
-        break;
-      case HTTP_CODE.NOT_FOUND:
+      case HttpCode.NotFound:
         toast.info(response.data.error);
         store.dispatch(redirectToRoute(AppRoute.NotFoundScreen));
         break;
+      default:
+        toast.error(response.data.error);
+        break;
     }
+  } else {
+    toast.error(error.message);
   }
 };

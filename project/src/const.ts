@@ -2,8 +2,21 @@ import { Genre } from './types/genre';
 
 export const STEP_COUNT = 8;
 
-export const minCommentLength = 50;
-export const maxCommentLength = 400;
+export const MIN_COMMENT_LENGTH = 50;
+export const MAX_COMMENT_LENGTH = 400;
+
+export const MAX_COUNT_SIMILAR_FILM = 4;
+
+export const TIMER_DELAY = 1000;
+
+export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+
+export const VIDEO_DELAY = 1000;
+export const SPIN_HEIGHT = 80;
+export const SPIN_WIDTH = 80;
+export const MAX_PLAYER_PROGRESS = 100;
+export const MIN_PLAYER_PROGRESS = 0;
+export const TIME_MULTIPLIER = 60;
 
 export enum AppRoute {
   SignIn = '/login',
@@ -35,6 +48,13 @@ export enum FilmTextRating {
   Awesome = 'Awesome',
 }
 
+export enum FilmRating {
+  Normal = 3,
+  Good = 5,
+  VeryGood = 8,
+  Awesome = 10,
+}
+
 export const GenreType: Genre = {
   'AllGenres': 'All genres',
   'Comedy': 'Comedies',
@@ -60,14 +80,14 @@ export enum APIRoute {
   Comments = '/comments',
 }
 
-export enum HTTP_CODE {
-  BAD_REQUEST = 400,
-  UNAUTHORIZED = 401,
-  NOT_FOUND = 404,
+export enum HttpCode {
+  BadRequest = 400,
+  Unauthorized = 401,
+  NotFound = 404,
 }
 
 export enum NameSpace {
-  data = 'DATA',
-  film = 'FILM',
-  user = 'USER',
+  Data = 'DATA',
+  Film = 'FILM',
+  User = 'USER',
 }

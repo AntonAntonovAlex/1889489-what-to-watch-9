@@ -11,15 +11,15 @@ function SignIn(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const onSubmit = (authData: AuthData) => {
+  const login = (authData: AuthData) => {
     dispatch(loginAction(authData));
   };
 
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      login({
         login: loginRef.current.value,
         password: passwordRef.current.value,
       });
@@ -33,10 +33,11 @@ function SignIn(): JSX.Element {
         <h1 className="page-title user-page__title">Sign in</h1>
       </header>
       <div className="sign-in user-page__content">
-        <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
+        <form action="#" className="sign-in__form" onSubmit={handleFormSubmit}>
           <div className="sign-in__fields">
             <div className="sign-in__field">
               <input
+                required
                 ref={loginRef}
                 className="sign-in__input"
                 type="email"
@@ -44,6 +45,7 @@ function SignIn(): JSX.Element {
                 name="user-email"
                 id="user-email"
                 data-testid="login"
+                pattern="^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"
               />
               <label
                 className="sign-in__label visually-hidden"
@@ -54,6 +56,7 @@ function SignIn(): JSX.Element {
             </div>
             <div className="sign-in__field">
               <input
+                required
                 pattern="[A-Za-z]+[0-9]+"
                 ref={passwordRef}
                 className="sign-in__input"
